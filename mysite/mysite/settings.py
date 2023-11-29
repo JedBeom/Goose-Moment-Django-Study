@@ -31,12 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "polls.apps.PollsConfig",
+    'django.contrib.admin', # DB사용, 관리용 사이트
+    'django.contrib.auth', # DB사용, 인증 시스템
+    'django.contrib.contenttypes', # DB사용, 컨텐츠 타입을 위한 프레임워크
+    'django.contrib.sessions', # DB사용, 세션 프레임워크
+    'django.contrib.messages', # 메세징 프레임워크 ? 이거 어따 씀? 채팅?
+    'django.contrib.staticfiles', # 스타틱
+    # 얘네들은 데이터베이스 테이블을 써먹는다 그래서 처음 migrate가 필요하다
 ]
 
 MIDDLEWARE = [

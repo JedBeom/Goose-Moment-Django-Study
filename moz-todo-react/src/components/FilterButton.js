@@ -1,8 +1,8 @@
 function FilterButton(props) {
   return (
-    <button type="button" className="btn toggle-btn" aria-pressed="true">
-      <span className="visually-hidden">작업 </span>
-      <span>모두 </span>
+    <button type="button" className="btn toggle-btn" aria-pressed={props.isPressed}
+	  	onClick={() => props.setFilter(props.name)}>
+      <span>{props.displayName} </span>
       <span className="visually-hidden"> 보이기</span>
     </button>
   );

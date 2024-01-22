@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { usePrevious } from "./utils/hooks";
 import { nanoid } from "nanoid";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
@@ -39,7 +40,7 @@ function App(props) {
 
 	function editTask(id, newName) {
 		const updatedTasks = tasks.map((task) => {
-			if (id == task.id) {
+			if (id === task.id) {
 				return { ...task, name: newName };
 			}
 			return task;
@@ -77,6 +78,15 @@ function App(props) {
 
 	const headingText = taskList.length === 0 ? "작업이 없음" : `${taskList.length}개의 작업이 남음`;
 
+	const listHeadingRef = useRef(null);
+	const prevTaskLength = usePrevious(tasks.length);
+
+	useEffect(() => {
+		if (tasks.length - prevTaskLength === -1) {
+			listHeadingRef.current.focus();
+		}
+	}, [tasks.length, prevTaskLength]);
+
 	return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
@@ -84,9 +94,8 @@ function App(props) {
       <div className="filters btn-group stack-exception">
 		{filterList}
       </div>
-      <h2 id="list-heading">{headingText}</h2>
+      <h2 id="list-heading" tabIndex={-1} ref={listHeadingRef}>{headingText}</h2>
       <ul
-        role="list"
         className="todo-list stack-large stack-exception"
         aria-labelledby="list-heading">
         {taskList}
